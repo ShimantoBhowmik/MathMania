@@ -1,5 +1,9 @@
 var ans;
 
+var points = 0;
+
+var bg_images = [];
+
 function generateRandom(min , max) {
 
     // find diff
@@ -43,6 +47,30 @@ function QuestionNext(){
 function checkAnswer(){
     prediction = predictImage();
     console.log(`Prediction ${prediction} and Answer ${ans}`)
+
+    if(prediction == ans){
+        points +=1;
+        console.log(`Correct answer! Points ${points}`);
+        if(points <=6 ){
+        bg_images.push(`url('images/background${points}.svg')`);
+        document.body.style.backgroundImage = bg_images;
+        }
+        else{
+            alert("Well done! You have done great! Want to start again?");
+            points = 0;
+            bg_images = [];
+            document.body.style.backgroundImage = bg_images;
+        }
+    }
+    else{
+        if(points != 0) points -=1;
+        console.log(`Wrong answer. Points ${points}`);
+        alert("Oops wrong answer! Try to write the number clearly next time! ");
+        setTimeout(function(){
+            bg_images.pop();
+            document.body.style.backgroundImage = bg_images;
+        }, 10);
+    }
 }
 
 
