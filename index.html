@@ -32,7 +32,10 @@
     <canvas id='canvas' width='160' height='160'></canvas>
       
   </div>
-  
+  <div >
+    <button id='clearCanvas' class='button' value='Clear'>Clear Canvas</button>
+  </div>
+
   <div class='container'>
     <button id='checkAnswer' class='button' value='Check'>Check Answer</button>
   </div>
@@ -43,6 +46,9 @@
     prepareCanvas();
     QuestionNext();
     
+    document.getElementById('clearCanvas').addEventListener('click', function(event){
+      clearCanvas();
+    })
 
     document.getElementById('checkAnswer').addEventListener('click', function(event){
       checkAnswer();
