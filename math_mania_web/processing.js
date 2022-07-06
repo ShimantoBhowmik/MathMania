@@ -75,6 +75,8 @@ function predictImage(){
     const result = model.predict(X);
     result.print();
 
+    const output = result.dataSync()[0];
+
     //cleanup
     image.delete();
     contours.delete();
@@ -83,5 +85,7 @@ function predictImage(){
     M.delete();
     X.dispose();
     result.dispose();
+
+    return output;
 }
 
