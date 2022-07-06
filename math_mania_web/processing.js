@@ -1,6 +1,8 @@
+var model;
+
 async function loadModel() {
-    const model = await tf.loadGraphModel('./Tensorflow_JS/model.json')
-    console.log(model);
+    model = await tf.loadGraphModel('./Tensorflow_JS/model.json')
+    // console.log(model);
 }
 
 function predictImage(){
@@ -60,10 +62,18 @@ function predictImage(){
     
     pixelValues = Float32Array.from(pixelValues);
 
-
     pixelValues = pixelValues.map(function(number){
         return number / 255.0;
     })
+
+    //creating tensor
+    const X = tf.tensor([pixelValues]);
+    // console.log(`Shape of tensor is ${X.shape}`);
+    // console.log(`dtype ${X.dtype}`);
+
+    //making prediction
+    const result = model.predict(X);
+    result.print();
 
     //cleanup
     image.delete();
@@ -71,5 +81,7 @@ function predictImage(){
     cnt.delete();
     heirarchy.delete();
     M.delete();
+    X.dispose();
+    result.dispose();
 }
 

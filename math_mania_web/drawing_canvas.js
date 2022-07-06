@@ -25,14 +25,14 @@ function prepareCanvas () {
     var isPainting = false;
 
     document.addEventListener('mousedown', function(event){
-        console.log('Mouse Pressed');
+        // console.log('Mouse Pressed');
         isPainting = true;  
         currX = event.clientX - canvas.offsetLeft;
         currY = event.clientY - canvas.offsetTop;   
     });
 
     document.addEventListener('mouseup', function(event){
-        console.log('Mouse Released');
+        // console.log('Mouse Released');
         isPainting = false;  
     });
 
@@ -55,13 +55,14 @@ function prepareCanvas () {
 
     // Adding compatibility for mobile devices
     canvas.addEventListener('touchstart', function(event){
-        console.log('Touch Start');
+        // console.log('Touch Start');
         isPainting = true;  
         currX = event.touches[0].clientX - canvas.offsetLeft;
         currY = event.touches[0].clientY - canvas.offsetTop;   
     });
 
     canvas.addEventListener('touchend', function(event){
+        // console.log('touch end')
         isPainting = false;  
     });
 
