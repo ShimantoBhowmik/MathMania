@@ -44,11 +44,7 @@ function prepareCanvas () {
         prevY = currY;
         currY = event.clientY - canvas.offsetTop;
 
-        context.beginPath();
-        context.moveTo(prevX, prevY);
-        context.lineTo(currX, currY);
-        context.closePath();
-        context.stroke();
+        drawFunction();
         }
 
     });
@@ -57,9 +53,45 @@ function prepareCanvas () {
         isPainting = false;  
     });
 
-    
+    // Adding compatibility for mobile devices
+    canvas.addEventListener('touchstart', function(event){
+        console.log('Touch Start');
+        isPainting = true;  
+        currX = event.touches[0].clientX - canvas.offsetLeft;
+        currY = event.touches[0].clientY - canvas.offsetTop;   
+    });
+
+    canvas.addEventListener('touchend', function(event){
+        isPainting = false;  
+    });
+
+    canvas.addEventListener('touchcancel', function(event){
+        isPainting = false;  
+    });
+
+    canvas.addEventListener('touchmove', function(event){
+        if (isPainting){
+        prevX = currX;
+        currX = event.touches[0].clientX - canvas.offsetLeft;
+
+        prevY = currY;
+        currY = event.touches[0].clientY - canvas.offsetTop;
+
+        drawFunction();
+        }
+
+    });
+
 
 };
+
+function drawFunction() {
+    context.beginPath();
+    context.moveTo(prevX, prevY);
+    context.lineTo(currX, currY);
+    context.closePath();
+    context.stroke();
+}
 
 function clearCanvas() {
     currX = 0;
